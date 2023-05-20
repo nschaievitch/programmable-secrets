@@ -1,1 +1,18 @@
-# programmable-secrets
+# Programmable Secrets
+
+Our research and development project aims to enable programmable encryption for smart contracts. Currently, smart contracts are unable to store and handle confidential information due to the public nature of the blockchain. Through the utilization of threshold encryption and crypto-economic security, our objective is to make this achievable. This involves establishing a distributed public-secret key pair controlled by the logic of smart contracts, which serves as a crucial foundation for the future of privacy.
+
+There are several use cases for this technology, including:
+
+- **Decentralized and trustless secret key recovery**: The key recovery logic could be implemented in smart contracts.
+- **Decentralized Private Auctions**: In a private auction, users can place secret bids during the bidding period. A smart contract could collect and store the encrypted bids, decrypting and revealing the winning bid only after the auction concludes.
+- **Private mempools**: Transactions could be encrypted using the decentralized public key and decrypted only when finalized in the chain. This prevents frontrunning and other MEV attacks.
+- **Fully Homomorphic Encryption (FHE)**: FHE enables arbitrary computation over encrypted data. However, the data must be encrypted under a specific key to allow decryption after the computation is run. This implies that if the owner of the key ever wants to decrypt the data, they can do it. This problem is immediately resolved when the key is controlled in a decentralized manner, and the data will only be decrypted based on the smart contract logic's decision.
+- **Private voting systems**: Building on top of FHE, individual votes could be encrypted under the decentralized key, with only the total result being decrypted. This implementation can be accomplished with less than 25 lines of code, without requiring any complex mathematics on the developer’s side.
+- **Content gatekeeping for decentralized social media**: Specific content can be restricted to certain addresses (e.g., holders of an NFT collection) for access.
+
+As these examples illustrate, the potential applications of this project are extensive. It is important to note that the project itself is not a standalone product, but rather a cryptographic primitive that enables the development of new types of products and protocols.
+
+From a technical perspective, our protocol utilizes threshold encryption, which can be thought of as an off-chain multisig. The private key is divided among multiple parties, each holding a 'share' of the secret. The key can only be used when a certain number of parties come together. Our protocol establishes a network of 'signers' who stake a specific number of tokens to acquire a share of the distributed secret key. Signers should only participate in the decryption of a secret when requested by the corresponding smart contract. Therefore, our protocol is secure under an honest majority.
+
+Furthermore, one of the primary contributions of our protocol is the reduction of security assumptions to a rational majority (not necessarily honest) by incorporating crypto-economic security. We achieve this by implementing broadly studied techniques that introduce accountability to the threshold encryption scheme. Consequently, it becomes possible to report signers involved in the decryption of a specific ciphertext, enabling slashings for engaging in unauthorized and malicious decryption of data. Individuals who report such misconduct are rewarded with a portion of the slashed stake. This incentivizes the monitoring and reporting of unlawful collusions.
